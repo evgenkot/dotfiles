@@ -6,6 +6,8 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
+vim.g.netrw_banner = 0
+
 vim.opt.smartindent = true
 
 vim.opt.swapfile = false
