@@ -1,5 +1,5 @@
-alias oldvim="vim"
-alias oldvi="vi"
+alias oldvim="/usr/bin/vim"
+alias oldvi="/usr/bin/vi"
 
 alias vim="nvim"
 alias vi="nvim"
