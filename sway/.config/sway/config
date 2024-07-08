@@ -20,7 +20,6 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg #000000 solid_color
 #
 # Example configuration:
 #
@@ -33,9 +32,9 @@ output * bg #000000 solid_color
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'swaylock -f' \
          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'swaylock -f'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -199,36 +198,5 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-#
-# Look
-#
-
-include catppuccin-mocha
-
-# Read `man 5 sway-bar` for more information about this section.
-bar {
-    position bottom
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-    colors {
-        background         $base
-        statusline         $text
-        focused_statusline $text
-        focused_separator  $base
-        focused_workspace  $base $overlay0 $base
-        active_workspace   $base $base $blue
-        inactive_workspace $base $base $surface1
-        urgent_workspace   $base $base $surface1
-        binding_mode       $base $base $surface1
-    }
-}
-
-
-# target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $rosewater $lavender
-client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
-client.unfocused         $overlay0 $base $text  $rosewater $overlay0
-client.urgent            $peach    $base $peach $overlay0  $peach
-client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
-client.background        $base
-
+include ~/.config/sway/config.d/*
 include /etc/sway/config.d/*
