@@ -1,19 +1,20 @@
 include catppuccin-mocha
 
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position bottom
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-    colors {
-        background         $base
-        statusline         $text
-        focused_statusline $text
-        focused_separator  $base
-        focused_workspace  $base $overlay0 $base
-        active_workspace   $base $base $blue
-        inactive_workspace $base $base $surface1
-        urgent_workspace   $base $base $surface1
-        binding_mode       $base $base $surface1
-    }
-}
-
+bar swaybar_command waybar
+# bar {
+#     position bottom
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#     colors {
+#         background         $base
+#         statusline         $text
+#         focused_statusline $text
+#         focused_separator  $base
+#         focused_workspace  $base $overlay0 $base
+#         active_workspace   $base $base $blue
+#         inactive_workspace $base $base $surface1
+#         urgent_workspace   $base $base $surface1
+#         binding_mode       $base $base $surface1
+#     }
+# }
+# 

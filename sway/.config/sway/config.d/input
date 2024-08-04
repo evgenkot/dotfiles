@@ -4,3 +4,9 @@ input type:touchpad {
     natural_scroll enabled
     middle_emulation disabled
 }
+
+# Keyboard layout:
+input type:keyboard {
+    xkb_layout us,ru
+    xkb_options grp:win_space_toggle
+}
