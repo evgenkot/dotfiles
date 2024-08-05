@@ -39,8 +39,8 @@ window#waybar {
 #clock.1,
 #clock.2,
 #clock.3,
-#network,
 #battery,
+#network,
 #pulseaudio,
 #language,
 #memory,
@@ -68,10 +68,10 @@ window#waybar {
 	color: @red;
 }
 
-#network {
+#battery {
 	color: @red;
 }
-#battery {
+#network {
 	color: @peach;
 }
 #pulseaudio {
@@ -88,8 +88,8 @@ window#waybar {
 }
 
 #clock,
-#network,
 #battery,
+#network,
 #pulseaudio,
 #language,
 #memory,
