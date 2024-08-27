@@ -5,6 +5,11 @@ input type:touchpad {
     middle_emulation disabled
 }
 
+input type:pointer {
+    accel_profile "flat"
+    pointer_accel 0
+}
+
 # Keyboard layout:
 input type:keyboard {
     xkb_layout us,ru
