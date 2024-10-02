@@ -83,7 +83,7 @@ exec swayidle -w \
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec 'swaymsg exit'
 
-    bindsym $mod+Shift+s exec grim  -g "$(slurp)" ~/Desktop/Pictures/Screenshots/Screenshot-$(date +'%H:%M:%S.png')
+    bindsym $mod+Shift+s exec grim -g "$(slurp)" ~/Pictures/Screenshots/Screenshot-$(date +'%H:%M:%S.png')
 
 #
 # Moving around:
