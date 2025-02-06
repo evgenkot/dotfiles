@@ -74,5 +74,9 @@
         },
         "tray": {
             "icon-size": 20
+        },
+        "sway/language": {
+            "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
+            "format": "{short}",
         }
 }

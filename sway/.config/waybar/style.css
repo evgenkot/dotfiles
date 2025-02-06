@@ -55,8 +55,12 @@ window#waybar {
 	padding: 0 2px;
 	color: @text;
 }
-#workspaces button.focused {
+#workspaces button.visible {
     background: @overlay0;
+    color: @crust;
+}
+#workspaces button.focused {
+    background: @overlay2;
 	color: @crust;
 }
 #workspaces button:hover {
@@ -67,6 +71,7 @@ window#waybar {
     background: @red;
 	color: @red;
 }
+
 
 #battery {
 	color: @red;
