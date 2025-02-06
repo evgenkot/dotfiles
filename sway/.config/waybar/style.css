@@ -79,6 +79,7 @@ window#waybar {
 }
 #language {
     color: @green;
+    min-width: 25px;
 }
 #memory {
 	color: @sky;
