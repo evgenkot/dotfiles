@@ -1,0 +1,84 @@
+// -*- mode: json -*-
+
+{
+    "layer": "top",
+        "position": "bottom",
+
+        "modules-left": [
+            "hyprland/workspaces",
+        ],
+        "modules-center": [
+            "clock#1",
+        "clock#2",
+        "clock#3",
+        ],
+        "modules-right": [
+            "tray",
+        "battery",
+        "network",
+        "pulseaudio",
+        "hyprland/language",
+        "memory",
+        "cpu"
+        ],
+
+        "sway/workspaces": {
+            "disable-scroll": true,
+            "format": "{name}"
+        },
+
+        "clock#1": {
+            "format": "{:%a}",
+            "tooltip": false
+        },
+        "clock#2": {
+            "format": "{:%H:%M}",
+            "tooltip": false
+        },
+        "clock#3": {
+            "format": "{:%m-%d}",
+            "tooltip": false
+        },
+
+
+        "battery": {
+            "format": "BAT {capacity}%",
+            "format-charging": "CHG {capacity}%",
+            "format-plugged": "PLG {capacity}%",
+            "format-alt": "{time}",
+        },
+        "network": {
+            // "interface": "wlp2*", // (Optional) To force the use of this interface
+            "format-wifi": "WIFI {essid} ({signalStrength}%)",
+            "format-ethernet": "ETH",
+            "tooltip-format": "{ifname} via {gwaddr}",
+            "format-linked": "LINK {ifname} (No IP)",
+            "format-disconnected": "Disconnected",
+            "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        },
+        "pulseaudio": {
+            "format": "VOL {volume}%",
+            "format-bluetooth": "BLT {volume}%",
+            "format-muted": "MUTE",
+            "scroll-step": 5,
+            "on-click": "pamixer -t",
+            "on-click-right": "pavucontrol"
+        },
+        "memory": {
+            "interval": 5,
+            "format": "MEM {:2}%"
+        },
+        "cpu": {
+            "interval": 5,
+            "format": "CPU {usage:2}%"
+        },
+        "tray": {
+            "icon-size": 20
+        },
+
+        "hyprland/language": {
+            "format": "{}",
+            "format-en": "EN",
+            "format-ru": "RU"
+        },
+}
