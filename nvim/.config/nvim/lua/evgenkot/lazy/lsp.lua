@@ -30,6 +30,7 @@ return {
                 "rust_analyzer",
                 "tsserver",
                 "clangd",
+                "gopls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -66,6 +67,21 @@ return {
                                 }
                             }
                         }
+                    }
+                end,
+                ["rust_analyzer"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.rust_analyzer.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            ["rust-analyzer"] = {
+                                diagnostics = {
+                                    enable = true,
+                                    disabled = { "unresolved-proc-macro" },
+                                    enableExperimental = true,
+                                },
+                            },
+                        },
                     }
                 end,
             }
