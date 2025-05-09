@@ -109,6 +109,8 @@ return {
                 })
         })
 
+        vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
