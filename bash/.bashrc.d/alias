@@ -4,3 +4,6 @@ alias oldvi="/usr/bin/vi"
 alias vim="nvim"
 alias vi="nvim"
 
+alias k="kubectl"
+alias h="helm"
+alias f="flux"
