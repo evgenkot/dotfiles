@@ -1,8 +1,8 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
+        { "mason-org/mason.nvim", version = "^1.0.0" },
+        { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -116,7 +116,7 @@ return {
             float = {
                 focusable = false,
                 style = "minimal",
-                border = "rounded",
+                border = "single",
                 source = "always",
                 header = "",
                 prefix = "",
