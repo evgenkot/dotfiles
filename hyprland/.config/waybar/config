@@ -79,6 +79,7 @@
         "hyprland/language": {
             "format": "{}",
             "format-en": "EN",
-            "format-ru": "RU"
+            "format-ru": "RU",
+            "on-click": "hyprctl switchxkblayout current next"
         },
 }
