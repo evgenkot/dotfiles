@@ -31,6 +31,8 @@ return {
                 "ts_ls",
                 "clangd",
                 "gopls",
+                "helm_ls",
+                "yamlls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -39,22 +41,67 @@ return {
                     }
                 end,
 
-                zls = function()
+                ["helm_ls"] = function()
                     local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+                    lspconfig.helm_ls.setup {
+                        capabilities = capabilities,
+                        -- filetypes commonly used by helm-ls
+                        filetypes = { "helm", "helmfile" },
                         settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
+                            ["helm-ls"] = {
+                                -- use yaml-language-server for richer YAML features (as recommended).
+                                -- path may be "yaml-language-server" (if installed via npm) or the mason-installed binary.
+                                yamlls = {
+                                    enabled = true,
+                                    -- path can be a string or array; change if your yaml-language-server binary is elsewhere
+                                    path = "yaml-language-server",
+                                    -- glob which files to enable the yamlls integration for
+                                    enabledForFilesGlob = "*.{yaml,yml}",
+                                    initTimeoutSeconds = 3,
+                                    -- diagnostics control is optional; adjust as needed
+                                    diagnosticsLimit = 50,
+                                    showDiagnosticsDirectly = false,
+                                },
+                                valuesFiles = {
+                                    mainValuesFile = "values.yaml",
+                                    lintOverlayValuesFile = "values.lint.yaml",
+                                    additionalValuesFilesGlobPattern = "values*.yaml",
+                                },
+                                helmLint = {
+                                    enabled = true,
+                                    ignoredMessages = {},
+                                },
+                                logLevel = "info",
+                            }
+                        },
+                    }
+                end,
+
+                ["yamlls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.yamlls.setup {
+                        capabilities = capabilities,
+                        -- limit yamlls attachment to plain yaml buffers (so helm templates with ft=helm don't get yamlls)
+                        filetypes = { "yaml", "yml" },
+                        settings = {
+                            yaml = {
+                                -- add schemas you want. This is an example mapping to the kubernetes schema for templates.
+                                -- Extend these mappings with your project's schema URLs -> globs
+                                schemas = {
+                                    ["https://json.schemastore.org/chart.json"] = "Chart.yaml",
+                                    -- e.g. ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "templates/**",
+                                },
+                                completion = true,
+                                hover = true,
                             },
                         },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
 
+
+                    }
                 end,
+
+
+
                 ["lua_ls"] = function()
                     local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
@@ -112,6 +159,9 @@ return {
         vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
+
         vim.diagnostic.config({
             -- update_in_insert = true,
             float = {
