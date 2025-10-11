@@ -24,6 +24,8 @@ return {
 
         require("fidget").setup({})
         require("mason").setup()
+
+        -- mason-lspconfig: list of servers to ensure installed and set up
         require("mason-lspconfig").setup({
             ensure_installed = {
                 "lua_ls",
@@ -34,104 +36,95 @@ return {
                 "helm_ls",
                 "yamlls",
             },
-            handlers = {
-                function(server_name) -- default handler (optional)
-                    require("lspconfig")[server_name].setup {
-                        capabilities = capabilities
-                    }
-                end,
+        })
 
-                ["helm_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.helm_ls.setup {
-                        capabilities = capabilities,
-                        -- filetypes commonly used by helm-ls
-                        filetypes = { "helm", "helmfile" },
-                        settings = {
-                            ["helm-ls"] = {
-                                -- use yaml-language-server for richer YAML features (as recommended).
-                                -- path may be "yaml-language-server" (if installed via npm) or the mason-installed binary.
-                                yamlls = {
-                                    enabled = true,
-                                    -- path can be a string or array; change if your yaml-language-server binary is elsewhere
-                                    path = "yaml-language-server",
-                                    -- glob which files to enable the yamlls integration for
-                                    enabledForFilesGlob = "*.{yaml,yml}",
-                                    initTimeoutSeconds = 3,
-                                    -- diagnostics control is optional; adjust as needed
-                                    diagnosticsLimit = 50,
-                                    showDiagnosticsDirectly = false,
-                                },
-                                valuesFiles = {
-                                    mainValuesFile = "values.yaml",
-                                    lintOverlayValuesFile = "values.lint.yaml",
-                                    additionalValuesFilesGlobPattern = "values*.yaml",
-                                },
-                                helmLint = {
-                                    enabled = true,
-                                    ignoredMessages = {},
-                                },
-                                logLevel = "info",
-                            }
+        -- Use setup_handlers to configure servers. Use vim.lsp.config and vim.lsp.enable
+        require("mason-lspconfig").setup_handlers({
+            -- default handler: configure with capabilities and enable
+            function(server_name)
+                vim.lsp.config(server_name, {
+                    capabilities = capabilities,
+                })
+                vim.lsp.enable(server_name)
+            end,
+
+            ["helm_ls"] = function()
+                vim.lsp.config("helm_ls", {
+                    capabilities = capabilities,
+                    filetypes = { "helm", "helmfile" },
+                    settings = {
+                        ["helm-ls"] = {
+                            yamlls = {
+                                enabled = true,
+                                path = "yaml-language-server",
+                                enabledForFilesGlob = "*.{yaml,yml}",
+                                initTimeoutSeconds = 3,
+                                diagnosticsLimit = 50,
+                                showDiagnosticsDirectly = false,
+                            },
+                            valuesFiles = {
+                                mainValuesFile = "values.yaml",
+                                lintOverlayValuesFile = "values.lint.yaml",
+                                additionalValuesFilesGlobPattern = "values*.yaml",
+                            },
+                            helmLint = {
+                                enabled = true,
+                                ignoredMessages = {},
+                            },
+                            logLevel = "info",
                         },
-                    }
-                end,
+                    },
+                })
+                vim.lsp.enable("helm_ls")
+            end,
 
-                ["yamlls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.yamlls.setup {
-                        capabilities = capabilities,
-                        -- limit yamlls attachment to plain yaml buffers (so helm templates with ft=helm don't get yamlls)
-                        filetypes = { "yaml", "yml" },
-                        settings = {
-                            yaml = {
-                                -- add schemas you want. This is an example mapping to the kubernetes schema for templates.
-                                -- Extend these mappings with your project's schema URLs -> globs
-                                schemas = {
-                                    ["https://json.schemastore.org/chart.json"] = "Chart.yaml",
-                                    -- e.g. ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/keda.sh/scaledobject_v1alpha1.json"] = "templates/**",
-                                },
-                                completion = true,
-                                hover = true,
+            ["yamlls"] = function()
+                vim.lsp.config("yamlls", {
+                    capabilities = capabilities,
+                    filetypes = { "yaml", "yml" },
+                    settings = {
+                        yaml = {
+                            schemas = {
+                                ["https://json.schemastore.org/chart.json"] = "Chart.yaml",
+                            },
+                            completion = true,
+                            hover = true,
+                        },
+                    },
+                })
+                vim.lsp.enable("yamlls")
+            end,
+
+            ["lua_ls"] = function()
+                vim.lsp.config("lua_ls", {
+                    capabilities = capabilities,
+                    settings = {
+                        Lua = {
+                            runtime = { version = "Lua 5.1" },
+                            diagnostics = {
+                                globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
                             },
                         },
+                    },
+                })
+                vim.lsp.enable("lua_ls")
+            end,
 
-
-                    }
-                end,
-
-
-
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-                ["rust_analyzer"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.rust_analyzer.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            ["rust-analyzer"] = {
-                                diagnostics = {
-                                    enable = true,
-                                    disabled = { "unresolved-proc-macro" },
-                                    enableExperimental = true,
-                                },
+            ["rust_analyzer"] = function()
+                vim.lsp.config("rust_analyzer", {
+                    capabilities = capabilities,
+                    settings = {
+                        ["rust-analyzer"] = {
+                            diagnostics = {
+                                enable = true,
+                                disabled = { "unresolved-proc-macro" },
+                                enableExperimental = true,
                             },
                         },
-                    }
-                end,
-            }
+                    },
+                })
+                vim.lsp.enable("rust_analyzer")
+            end,
         })
 
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -150,20 +143,21 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
+                { name = 'luasnip' },
             }, {
                     { name = 'buffer' },
                 })
         })
 
+        -- Keymaps
         vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap("n", "<leader>gd", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
 
+        -- Diagnostics UI
         vim.diagnostic.config({
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",
@@ -175,3 +169,4 @@ return {
         })
     end
 }
+
