@@ -1,3 +1,5 @@
+[merge]
+    ff = only
 [user]
 	email = evgenkot@disroot.org
 	name = evgenkot
