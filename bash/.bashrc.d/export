@@ -3,3 +3,5 @@ export EDITOR="$VISUAL"
 
 export HISTSIZE=-1
 export HISTFILESIZE=-1
+
+HISTTIMEFORMAT="%d/%m/%y %T "
