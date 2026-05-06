@@ -7,3 +7,5 @@ alias vi="nvim"
 alias k="kubectl"
 alias h="helm"
 alias f="flux"
+
+alias terraform="tofu"
