@@ -1,5 +1,6 @@
 return {
     "nvim-lua/plenary.nvim", -- required for some utilities
+    ft = { "yaml", "yaml.ansible" },
     config = function()
         -- Resolve the vault password file: prefer $ANSIBLE_VAULT_PASSWORD_FILE, fall back to ~/.vlt.
         -- Returns nil if the resolved file does not exist.
@@ -93,9 +94,5 @@ return {
             vault_run_range("decrypt")
         end, { range = true })
 
-        vim.keymap.set("v", "<leader>ae", ":<C-u>VaultEncryptRange<CR>",
-            { desc = "Ansible Vault Encrypt", silent = true })
-        vim.keymap.set("v", "<leader>ad", ":<C-u>VaultDecryptRange<CR>",
-            { desc = "Ansible Vault Decrypt", silent = true })
     end,
 }

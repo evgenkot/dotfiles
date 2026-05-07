@@ -1,5 +1,9 @@
 return {
     "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    cond = function()
+        return vim.fn.isdirectory(".git") == 1 or vim.fn.system("git rev-parse --is-inside-work-tree"):match("true")
+    end,
     config = function()
         require('gitsigns').setup {
             signs = {
@@ -50,9 +54,5 @@ return {
                 col = 1
             },
         }
-
-        -- Keymaps
-        vim.api.nvim_set_keymap('n', '<leader>gp', '<cmd>Gitsigns preview_hunk_inline<CR>', {})
-        vim.api.nvim_set_keymap('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', {})
     end
 }
