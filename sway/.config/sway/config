@@ -21,6 +21,7 @@ default_border pixel 1
 default_floating_border pixel 1
 smart_borders on
 focus_follows_mouse yes
+mouse_warping container
 floating_modifier $mod normal
 
 ### Idle
