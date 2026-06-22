@@ -21,4 +21,7 @@ if [ -d ~/.bashrc.d ]; then
 	done
 fi
 
+shopt -s histappend
+PROMPT_COMMAND='history -a;history -n'
+
 unset rc
