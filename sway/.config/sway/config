@@ -8,10 +8,10 @@ set $down j
 set $up k
 set $right l
 
-set $term alacritty
+set $term xdg-terminal-exec
 set $fileManager xdg-open "$HOME"
-set $menu wofi --show run
-set $browser xdg-open about:blank
+set $menu wofi --show drun --term xdg-terminal-exec
+set $browser sh -c 'gtk-launch "$(xdg-settings get default-web-browser 2>/dev/null)" || gtk-launch "$(xdg-mime query default x-scheme-handler/https 2>/dev/null)" || xdg-open about:blank'
 set $lock swaylock -f
 
 ### Look and feel
