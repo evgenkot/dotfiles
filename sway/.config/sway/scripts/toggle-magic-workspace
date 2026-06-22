@@ -1,0 +1,28 @@
+#!/bin/sh
+
+workspace="11:m"
+state_file="${XDG_RUNTIME_DIR:-/tmp}/sway-magic-workspace-previous"
+
+focused_workspace=$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused).name')
+if [ "$focused_workspace" = "$workspace" ]; then
+    previous_workspace=$(cat "$state_file" 2>/dev/null)
+    if [ -n "$previous_workspace" ] && [ "$previous_workspace" != "$workspace" ]; then
+        swaymsg workspace "$previous_workspace" >/dev/null
+    else
+        swaymsg workspace number 1 >/dev/null
+    fi
+    exit
+fi
+
+focused_output=$(swaymsg -t get_outputs | jq -r '.[] | select(.focused).name')
+if [ -n "$focused_workspace" ]; then
+    printf '%s\n' "$focused_workspace" > "$state_file"
+fi
+
+if [ -z "$focused_output" ]; then
+    swaymsg workspace "$workspace" >/dev/null
+    exit
+fi
+
+swaymsg workspace "$workspace" >/dev/null
+swaymsg move workspace to output "$focused_output" >/dev/null

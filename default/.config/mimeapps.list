@@ -1,0 +1,24 @@
+[Default Applications]
+application/pdf=org.gnome.Evince.desktop
+application/xhtml+xml=librewolf.desktop
+image/jpeg=org.gnome.Loupe.desktop
+image/png=org.gnome.Loupe.desktop
+image/webp=org.gnome.Loupe.desktop
+inode/directory=org.gnome.Nautilus.desktop
+text/html=librewolf.desktop
+text/plain=nvim.desktop
+x-scheme-handler/about=librewolf.desktop
+x-scheme-handler/http=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
+x-scheme-handler/kiro=kiro-account-manager-handler.desktop
+x-scheme-handler/unknown=librewolf.desktop
+
+[Added Associations]
+application/pdf=org.gnome.Evince.desktop;
+application/xhtml+xml=librewolf.desktop;
+image/jpeg=org.gnome.Loupe.desktop;
+image/png=org.gnome.Loupe.desktop;
+image/webp=org.gnome.Loupe.desktop;
+inode/directory=org.gnome.Nautilus.desktop;
+text/html=librewolf.desktop;
+text/plain=nvim.desktop;

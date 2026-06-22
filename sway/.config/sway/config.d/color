@@ -3,11 +3,11 @@ include catppuccin-mocha
 output * bg #000000 solid_color
 
 # target                 title     bg    text   indicator  border
-client.focused           $lavender $base $text  $rosewater $lavender
-client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
-client.unfocused         $overlay0 $base $text  $rosewater $overlay0
-client.urgent            $peach    $base $peach $overlay0  $peach
-client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.focused           $blue     $base $text  $rosewater $blue
+client.focused_inactive  $surface0 $base $text  $rosewater $surface0
+client.unfocused         $surface0 $base $text  $rosewater $surface0
+client.urgent            $yellow   $base $yellow $surface0 $yellow
+client.placeholder       $surface0 $base $text  $surface0 $surface0
 client.background        $base
 
 #gnome theme settings
@@ -51,4 +51,3 @@ gsettings set $gnome-schema enable-animations "false"
 #    gsettings set $gnome-schema cursor-theme ''
 #    gsettings set $gnome-schema font-name ''
 }
-
