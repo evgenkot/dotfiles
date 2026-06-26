@@ -30,6 +30,7 @@ return {
                 "ts_ls",
                 "clangd",
                 "gopls",
+                "ansiblels",
                 "helm_ls",
                 "yamlls",
             },

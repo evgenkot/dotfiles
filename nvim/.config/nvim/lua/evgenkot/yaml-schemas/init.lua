@@ -118,7 +118,7 @@ function M.setup()
   -- Content-based detection: on BufRead for yaml files, detect schema
   -- and trigger lazy download if needed
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    pattern = { "*.yaml", "*.yml" },
+    pattern = { "*.yaml", "*.yml", "*.yaml.j2", "*.yml.j2" },
     callback = function(ev)
       local entry = detect.resolve(ev.buf)
       if entry then

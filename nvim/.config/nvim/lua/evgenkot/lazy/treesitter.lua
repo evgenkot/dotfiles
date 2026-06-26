@@ -11,6 +11,8 @@ local parsers = {
     "cpp",
     "c_sharp",
     "java",
+    "jinja",
+    "jinja_inline",
     "lua",
     "luadoc",
     "rust",

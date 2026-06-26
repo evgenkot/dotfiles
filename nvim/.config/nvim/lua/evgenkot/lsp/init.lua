@@ -1,4 +1,5 @@
 local servers = {
+    "ansiblels",
     "helm_ls",
     "yamlls",
     "lua_ls",

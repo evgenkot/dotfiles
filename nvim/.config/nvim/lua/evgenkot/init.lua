@@ -1,5 +1,6 @@
 require("evgenkot.set")
+require("evgenkot.filetypes")
+require("evgenkot.jinja").setup()
 require("evgenkot.remap")
 require("evgenkot.keymaps")
 require("evgenkot.lazy_init")
-
