@@ -1,0 +1,9 @@
+# Krew (kubectl plugin manager)
+krew_bin="${KREW_ROOT:-$HOME/.krew}/bin"
+if [ -d "$krew_bin" ]; then
+	case ":$PATH:" in
+		*":$krew_bin:"*) ;;
+		*) export PATH="$krew_bin:$PATH" ;;
+	esac
+fi
+unset krew_bin
