@@ -1,33 +1,81 @@
+local parsers = {
+    "vim",
+    "vimdoc",
+    "query",
+    "javascript",
+    "typescript",
+    "tsx",
+    "html",
+    "css",
+    "c",
+    "cpp",
+    "c_sharp",
+    "java",
+    "lua",
+    "luadoc",
+    "rust",
+    "jsdoc",
+    "bash",
+    "python",
+    "go",
+    "gomod",
+    "gosum",
+    "gowork",
+    "gotmpl",
+    "helm",
+    "yaml",
+    "vrl",
+    "markdown",
+    "markdown_inline",
+    "templ",
+}
+
 return {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    branch = "main",
+    lazy = false,
+    build = function()
+        require("nvim-treesitter").install(parsers):wait(300000)
+    end,
     config = function()
-        require("nvim-treesitter.configs").setup({
-            -- A list of parser names, or "all"
-            ensure_installed = {
-                "vim", "vimdoc", "javascript", "typescript", "html", "css", "c", "cpp", "c_sharp", "java", "lua", "rust", "jsdoc", "bash", "python", "helm", "yaml", "vrl"
-            },
-            sync_install = false,
-            auto_install = true,
-            indent = {
-                enable = true
-            },
+        local treesitter = require("nvim-treesitter")
 
-            highlight = {
-                enable = true,
-                additional_vim_regex_highlighting = { "markdown" },
-            },
+        treesitter.setup()
+
+        local installed = {}
+        for _, parser in ipairs(treesitter.get_installed()) do
+            installed[parser] = true
+        end
+
+        local missing = {}
+        for _, parser in ipairs(parsers) do
+            if not installed[parser] then
+                table.insert(missing, parser)
+            end
+        end
+
+        if #missing > 0 then
+            treesitter.install(missing)
+        end
+
+        local enabled = {}
+        for _, parser in ipairs(parsers) do
+            enabled[parser] = true
+        end
+
+        vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("evgenkot_treesitter", { clear = true }),
+            callback = function(args)
+                local filetype = vim.bo[args.buf].filetype
+                local parser = vim.treesitter.language.get_lang(filetype) or filetype
+
+                if not enabled[parser] then
+                    return
+                end
+
+                pcall(vim.treesitter.start, args.buf, parser)
+                vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end,
         })
-
-        local treesitter_parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-        treesitter_parser_config.templ = {
-            install_info = {
-                url = "https://github.com/vrischmann/tree-sitter-templ.git",
-                files = {"src/parser.c", "src/scanner.c"},
-                branch = "master",
-            },
-        }
-
-        vim.treesitter.language.register("templ", "templ")
     end
 }
