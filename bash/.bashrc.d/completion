@@ -1,9 +1,40 @@
-command -v kubectl >/dev/null && . <(kubectl completion bash)
-command -v helm >/dev/null && . <(helm completion bash)
-command -v flux >/dev/null && . <(flux completion bash)
-command -v podman >/dev/null && . <(podman completion bash)
-command -v docker >/dev/null && . <(docker completion bash)
+# Lazy-load shell completions on first use. Generating all of these during
+# every interactive shell startup is noticeably slower.
+__lazy_completion_kubectl() {
+	complete -r kubectl k 2>/dev/null
+	. <(kubectl completion bash)
+	complete -o default -F __start_kubectl k
+	__start_kubectl "$@"
+}
 
-complete -o default -F __start_kubectl k
-complete -o default -F __start_helm h
-complete -o default -F __start_flux f
+__lazy_completion_helm() {
+	complete -r helm h 2>/dev/null
+	. <(helm completion bash)
+	complete -o default -F __start_helm h
+	__start_helm "$@"
+}
+
+__lazy_completion_flux() {
+	complete -r flux f 2>/dev/null
+	. <(flux completion bash)
+	complete -o default -F __start_flux f
+	__start_flux "$@"
+}
+
+__lazy_completion_podman() {
+	complete -r podman 2>/dev/null
+	. <(podman completion bash)
+	__start_podman "$@"
+}
+
+__lazy_completion_docker() {
+	complete -r docker 2>/dev/null
+	. <(docker completion bash)
+	__start_docker "$@"
+}
+
+command -v kubectl >/dev/null && complete -o default -F __lazy_completion_kubectl kubectl k
+command -v helm >/dev/null && complete -o default -F __lazy_completion_helm helm h
+command -v flux >/dev/null && complete -o default -F __lazy_completion_flux flux f
+command -v podman >/dev/null && complete -o default -F __lazy_completion_podman podman
+command -v docker >/dev/null && complete -o default -F __lazy_completion_docker docker

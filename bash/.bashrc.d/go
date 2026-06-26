@@ -1,0 +1,12 @@
+# Go
+unset GOROOT GOPATH
+export GOTOOLCHAIN=auto
+
+go_bin="${GOBIN:-$HOME/go/bin}"
+if [ -d "$go_bin" ]; then
+	case ":$PATH:" in
+		*":$go_bin:"*) ;;
+		*) export PATH="$go_bin:$PATH" ;;
+	esac
+fi
+unset go_bin

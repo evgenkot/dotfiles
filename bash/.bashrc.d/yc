@@ -1,8 +1,22 @@
 # Yandex Cloud CLI
-if [ -f "$HOME/yandex-cloud/path.bash.inc" ]; then
-	source "$HOME/yandex-cloud/path.bash.inc"
+yc_root="$HOME/yandex-cloud"
+yc_bin="$yc_root/bin"
+
+if [ -d "$yc_bin" ]; then
+	case ":$PATH:" in
+		*":$yc_bin:"*) ;;
+		*) export PATH="$yc_bin:$PATH" ;;
+	esac
 fi
 
-if [ -f "$HOME/yandex-cloud/completion.bash.inc" ]; then
+__lazy_completion_yc() {
+	complete -r yc 2>/dev/null
 	source "$HOME/yandex-cloud/completion.bash.inc"
+	__start_yc "$@"
+}
+
+if [ -f "$yc_root/completion.bash.inc" ] && command -v yc >/dev/null; then
+	complete -o default -F __lazy_completion_yc yc
 fi
+
+unset yc_bin yc_root
