@@ -5,3 +5,5 @@ export HISTSIZE=-1
 export HISTFILESIZE=-1
 export HISTFILE=~/.bash_eternal_history
 export HISTTIMEFORMAT="%d/%m/%y %T "
+
+export LIBVIRT_DEFAULT_URI=qemu:///system

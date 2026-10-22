@@ -1,0 +1,52 @@
+vim
+bash
+neovim
+tmux
+grep
+stow
+nmap
+traceroute
+dig
+pciutils
+fastfetch
+kubectl
+helm
+kustomize
+# podman
+# podman-compose
+# podman-docker
+# podman-remote
+qemu
+qemu-kvm
+libvirt
+virt-install
+bridge-utils
+@development-tools
+@c-development
+@editors
+@container-management
+rustup
+llvm-devel
+go
+wget
+opentofu
+@gnome-desktop
+@office
+@fonts
+keepassxc
+openvpn
+easy-rsa
+thunderbird
+wireshark
+java-25-openjdk-devel
+inotify-tools
+colordiff
+newt
+xournalpp
+tcpreplay
+tcprewrite
+libpcap-devel
+mold
+cmake
+https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-44.noarch.rpm
+https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-44.noarch.rpm

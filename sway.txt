@@ -1,0 +1,16 @@
+#hyprland
+#hyprlock
+#nwg-look
+sway
+alacritty
+bash
+mako
+waybar
+keepassxc
+wofi
+grim
+slurp
+wl-clipboard
+zathura
+pavucontrol
+virt-manager
