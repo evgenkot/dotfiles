@@ -9,6 +9,12 @@ return {
     settings = {
         yaml = {
             schemas = yaml_schemas.get_schemas(),
+            -- Local-only schema setup: don't let yamlls fetch the online
+            -- SchemaStore catalog (fails/errors when offline).
+            schemaStore = {
+                enable = false,
+                url = "",
+            },
             completion = true,
             hover = true,
         },

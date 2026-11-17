@@ -33,6 +33,7 @@ return {
                 "ansiblels",
                 "helm_ls",
                 "yamlls",
+                "lemminx",
             },
             automatic_enable = true,
         })

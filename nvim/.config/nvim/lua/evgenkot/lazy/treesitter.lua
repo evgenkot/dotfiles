@@ -26,6 +26,7 @@ local parsers = {
     "gotmpl",
     "helm",
     "yaml",
+    "xml",
     "vrl",
     "markdown",
     "markdown_inline",

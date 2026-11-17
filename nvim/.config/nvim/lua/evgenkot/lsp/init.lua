@@ -4,6 +4,7 @@ local servers = {
     "yamlls",
     "lua_ls",
     "rust_analyzer",
+    "lemminx",
 }
 
 for _, server in ipairs(servers) do

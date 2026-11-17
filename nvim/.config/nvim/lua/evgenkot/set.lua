@@ -1,6 +1,22 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
+-- Accept Normal/Visual commands when the system layout is Russian.
+local function escape_langmap(str)
+    return vim.fn.escape(str, [[;,"|\]])
+end
+
+local en = [[`qwertyuiop[]asdfghjkl;'zxcvbnm,.]]
+local ru = [[ёйцукенгшщзхъфывапролджэячсмитьбю]]
+local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>]]
+local ru_shift = [[ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ]]
+
+vim.opt.langmap = table.concat({
+    escape_langmap(ru_shift) .. ";" .. escape_langmap(en_shift),
+    escape_langmap(ru) .. ";" .. escape_langmap(en),
+}, ",")
+vim.opt.langremap = false
+
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4

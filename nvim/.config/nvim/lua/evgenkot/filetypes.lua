@@ -87,3 +87,19 @@ vim.filetype.add({
         yml = yaml_filetype,
     },
 })
+
+-- Neovim only runs filetype detection when a file is opened by name
+-- (BufNewFile/BufRead). Creating an unnamed buffer and then naming it
+-- (:file, :saveas, :w <name>, or a file-explorer "new file" action) skips
+-- detection, so a fresh YAML file in an Ansible project never becomes
+-- yaml.ansible and the LSP fails to attach. Re-run detection on rename/save
+-- when the filetype is still empty or plain yaml.
+vim.api.nvim_create_autocmd({ "BufFilePost", "BufWritePost" }, {
+    pattern = { "*.yml", "*.yaml" },
+    callback = function()
+        local ft = vim.bo.filetype
+        if ft == "" or ft == "yaml" then
+            vim.cmd("filetype detect")
+        end
+    end,
+})
